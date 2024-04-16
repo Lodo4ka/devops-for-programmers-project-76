@@ -1,0 +1,4 @@
+roles:
+  # install pip
+  - name: geerlingguy.pip
+    version: 3.0.3
