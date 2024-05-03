@@ -1,6 +1,23 @@
 hosts: all
+become: yes
 
 vars:
   pip_install_packages:
     - name: docker
-    - name: awscli
+
+tasks:
+  - name: Pull Redmine Docker image from Docker Hub
+    docker_image:
+      name: redmine
+      tag: latest
+      source: pull
+
+  - name: Run Redmine Docker container
+    docker_container:
+      name: redmine
+      image: redmine
+      state: started
+      ports:
+        - "8080:3000"
+      env_file:
+        - ./templates/.env
